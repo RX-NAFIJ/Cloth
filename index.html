@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>😈 Cloth remover - The Hidden AI</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        
+        <style>
+          /* কাস্টম ফন্ট সংজ্ঞা */
+          .creepy-font {
+            font-family: 'Metal Mania', cursive;
+          }
+          .standard-font {
+            font-family: 'Roboto', sans-serif;
+          }
+
+          /* ডার্ক এবং অ্যানিমেটেড ব্যাকগ্রাউন্ড */
+          body {
+            background: #111; /* প্রায় কালো */
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231f1f1f' fill-opacity='0.4'%3E%3Cpath d='M0 40L40 0ZM40 40L0 0Z' fill='none' stroke='%23333' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* একটি সূক্ষ্ম পালসেটিং শ্যাডো ইফেক্ট */
+            animation: pulse-shadow 4s infinite alternate;
+            position: relative; /* falling-letters-container-এর জন্য */
+            overflow: hidden; /* বাইরে চলে যাওয়া উপাদান লুকানোর জন্য */
+          }
+
+          @keyframes pulse-shadow {
+            0% {
+              box-shadow: 0 0 10px rgba(255, 0, 0, 0.2), 0 0 20px rgba(255, 0, 0, 0.1);
+            }
+            100% {
+              box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), 0 0 30px rgba(255, 0, 0, 0.2);
+            }
+          }
+
+          /* ফর্মের ডিজাইন - লাল ব্যাকগ্রাউন্ড এবং গ্লাস মরফিজম */
+          .form-container {
+            /* লাল ব্যাকগ্রাউন্ড যোগ করা হয়েছে */
+            background: rgba(139, 0, 0, 0.85); /* গাঢ় লাল */
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            border: 2px solid #ff5555;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.7); /* তীব্র লাল আভাযুক্ত শ্যাডো */
+          }
+
+          /* ইনপুট ফিল্ড স্টাইল */
+          .input-field {
+            background-color: #222;
+            color: #ddd;
+            border-color: #444;
+            transition: border-color 0.3s, box-shadow 0.3s;
+          }
+          .input-field:focus {
+            outline: none;
+            border-color: #e73c7e; /* ফোকাসে লালচে-গোলাপি বর্ডার */
+            box-shadow: 0 0 8px #e73c7e;
+            animation: shake-focus 0.1s linear 2; /* ফোকাসে অল্প ঝাঁকুনি */
+          }
+
+          /* বাটন অ্যানিমেশন */
+          .submit-button {
+            background-color: #cc0000; /* তীব্র লাল */
+            transition: background-color 0.3s, transform 0.3s;
+            animation: intense-pulse 1.5s infinite;
+          }
+          .submit-button:hover {
+            background-color: #ff3333;
+            transform: scale(1.02);
+            animation: none; /* হোভারে পালস বন্ধ */
+          }
+
+          @keyframes intense-pulse {
+            0% {
+              box-shadow: 0 0 10px #cc0000;
+            }
+            50% {
+              box-shadow: 0 0 20px #cc0000, 0 0 5px #ff6666;
+            }
+            100% {
+              box-shadow: 0 0 10px #cc0000;
+            }
+          }
+
+          /* অন্য লিঙ্কের জন্য হভার ইফেক্ট */
+          .group-link:hover {
+            color: #ff0000;
+            text-decoration-color: #ff0000;
+            animation: float 1s infinite alternate;
+          }
+          
+          /* সবুজ Click here-এর জন্য কাস্টম হভার ইফেক্ট */
+          .group-link-green:hover {
+            color: #ff0000; /* হোভার করলে লাল হয়ে যাবে, যেমনটি আগে ছিল */
+            text-decoration-color: #ff0000;
+            animation: float 1s infinite alternate;
+          }
+
+
+          @keyframes float {
+            0% {
+              transform: translateY(0px);
+            }
+            100% {
+              transform: translateY(-2px);
+            }
+          }
+          
+          /* সবুজ বর্ণের 'abcd' falling animation-এর জন্য */
+          .falling-letters-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* যাতে ফর্ম ইন্টার‍্যাকশন করা যায় */
+            z-index: 0;
+            overflow: hidden;
+          }
+
+          .falling-letter {
+            position: absolute;
+            color: #00ff00; /* সবুজ রঙ */
+            font-size: 20px;
+            opacity: 0.6;
+            animation: fall linear infinite;
+          }
+
+          @keyframes fall {
+            0% {
+              transform: translateY(-100px);
+              opacity: 0;
+            }
+            5% {
+              opacity: 0.6;
+            }
+            95% {
+              opacity: 0.6;
+            }
+            100% {
+              transform: translateY(100vh);
+              opacity: 0;
+            }
+          }
+        </style>
+        </head>
+        <body class="standard-font p-4">
+          
+          <div class="falling-letters-container" id="falling-letters">
+            </div>
+
+          <div class="form-container w-full max-w-lg p-4 m-1 z-10 relative">
+              <h2 class="text-4xl font-bold text-center text-red-600 mb-4 creepy-font animate-pulse">
+                  😈 Cloth remover 👻
+              </h2>
+                  
+                      <form id="submit-form" class="space-y-3">
+                            
+                                  <div>
+                                          <label for="from_name" class="block text-gray-300 font-semibold mb-1">Your name : </label>
+                                                  <input type="text" id="from_name" name="from_name" required 
+                                                                 class="w-full px-4 py-2 border rounded-lg input-field placeholder-gray-600">
+                                                                       </div>
+
+                                                                             <div>
+                                                                                     <label for="whatsapp" class="block text-gray-300 font-semibold mb-1">WhatsApp Number</label>
+                                                                                             <input type="text" id="whatsapp" name="whatsapp" required 
+                                                                                                            class="w-full px-4 py-2 border rounded-lg input-field placeholder-gray-600">
+                                                                                                                  </div>
+
+                                                                                                                        <div>
+                                                                                                                                <label for="message" class="block text-gray-300 font-semibold mb-1">What to do with the picture?</label>
+                                                                                                                                        <textarea id="message" name="message" required 
+                                                                                                                                                          class="w-full px-4 py-2 border rounded-lg input-field placeholder-gray-600"></textarea>
+                                                                                                                                                                </div>
+
+                                                                                                                                                                      <div>
+                                                                                                                                                                              <label for="image" class="block text-gray-300 font-semibold mb-1">picture link</label>
+                                                                                                                                                                                      <input type="text" id="image" name="image" placeholder="Picture link" 
+                                                                                                                                                                                                     class="w-full px-4 py-2 border rounded-lg input-field placeholder-gray-600">
+                                                                                                                                                                                                           </div>
+
+                                                                                                                                                                                                                 <button type="submit" 
+                                                                                                                                                                                                                               class="w-full text-white font-bold py-3 rounded-lg shadow submit-button mt-4">
+                                                                                                                                                                                                                                       💀 SUBMIT NOW 💀
+                                                                                                                                                                                                                                             </button>
+                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                             <p class="text-center text-lg font-medium text-gray-400 mt-2">
+                                                                                                                                                                                                                                                Join our group : 
+                                                                                                                                                                                                                                                <a href="https://t.me/teamrx1" target="_blank" class="text-green-500 hover:text-red-700 transition font-bold underline group-link-green">Click here</a>
+                                                                                                                                                                                                                                             </p>
+
+                                                                                                                                                                                                                                             <p class="text-center text-sm text-gray-500 mt-1">
+                                                                                                                                                                                                                                                DEVOLOPER : RX_NAFIJ
+                                                                                                                                                                                                                                             </p>
+                                                                                                                                                                                                                                             </form>
+                                                                                                                                                                                                                                                   </div>
+
+                                                                                                                                                                                                                                                     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+                                                                                                                                                                                                                                                         <script>
+                                                                                                                                                                                                                                                             (function(){
+                                                                                                                                                                                                                                                                   emailjs.init("x6xce8y_os0po_zF7"); // তোমার Public Key
+                                                                                                                                                                                                                                                                       })();
+
+                                                                                                                                                                                                                                                                           document.getElementById("submit-form").addEventListener("submit", function(event){
+                                                                                                                                                                                                                                                                                 event.preventDefault();
+
+                                                                                                                                                                                                                                                                                       emailjs.sendForm("service_nlwgu4k", "template_mef1f44", this)
+                                                                                                                                                                                                                                                                                               .then(function(response) {
+                                                                                                                                                                                                                                                                                                         alert("✅ Successfully submited-->w8 12 hour and chek your WhatsApp account");
+                                                                                                                                                                                                                                                                                                                 }, function(error) {
+                                                                                                                                                                                                                                                                                                                           alert("❌ Oh error hapend" + error.text);
+                                                                                                                                                                                                                                                                                                                                   });
+                                                                                                                                                                                                                                                                                                                                       });
+                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                         // Falling Letters Animation JavaScript
+                                                                                                                                                                                                                                                                                                                                         const container = document.getElementById('falling-letters');
+                                                                                                                                                                                                                                                                                                                                         const characters = 'abcd';
+                                                                                                                                                                                                                                                                                                                                         const count = 150; // অক্ষরের সংখ্যা ২৫০ করা হলো, যাতে ঘিজিঘিজি লাগে।
+                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                         for (let i = 0; i < count; i++) {
+                                                                                                                                                                                                                                                                                                                                             const char = characters[Math.floor(Math.random() * characters.length)];
+                                                                                                                                                                                                                                                                                                                                             const span = document.createElement('span');
+                                                                                                                                                                                                                                                                                                                                             span.textContent = char;
+                                                                                                                                                                                                                                                                                                                                             span.classList.add('falling-letter');
+                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                             // র্যান্ডম স্টাইল
+                                                                                                                                                                                                                                                                                                                                             const left = Math.random() * 100; // 0% থেকে 100% এর মধ্যে
+                                                                                                                                                                                                                                                                                                                                             // গতি বাড়ানো হয়েছে: ৫-১৫ সেকেন্ড থেকে ২-৬ সেকেন্ডে পরিবর্তন করা হয়েছে
+                                                                                                                                                                                                                                                                                                                                             const duration = Math.random() * 4 + 2; 
+                                                                                                                                                                                                                                                                                                                                             // অক্ষর দ্রুত শুরু করার জন্য ডিলে কমানো হয়েছে
+                                                                                                                                                                                                                                                                                                                                             const delay = Math.random() * 5; 
+                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                             span.style.left = `${left}vw`;
+                                                                                                                                                                                                                                                                                                                                             span.style.animationDuration = `${duration}s`;
+                                                                                                                                                                                                                                                                                                                                             span.style.animationDelay = `${delay}s`;
+                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                             container.appendChild(span);
+                                                                                                                                                                                                                                                                                                                                         }
+                                                                                                                                                                                                                                                                                                                                         </script>
+                                                                                                                                                                                                                                                                                                                                         </body>
+                                                                                                                                                                                                                                                                                                                                         </html>
